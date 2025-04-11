@@ -3,7 +3,7 @@ package ma.enset.bibliotheque.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import ma.enset.bibliotheque.emuns.EtatLivre;
+import ma.enset.bibliotheque.enums.EtatLivre;
 
 import java.time.LocalDate;
 import java.util.*;

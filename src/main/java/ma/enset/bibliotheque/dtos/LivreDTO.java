@@ -1,8 +1,10 @@
 package ma.enset.bibliotheque.dtos;
 
+import lombok.Data;
+
 import java.util.HashSet;
 import java.util.Set;
-
+@Data
 public class LivreDTO {
     private Long id;
     private String titre;

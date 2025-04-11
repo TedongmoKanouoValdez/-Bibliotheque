@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.enset.bibliotheque.emuns.Role;
+import ma.enset.bibliotheque.enums.Role;
 
 @Data
 @Entity

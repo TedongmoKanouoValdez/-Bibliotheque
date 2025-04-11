@@ -4,10 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.enset.bibliotheque.emuns.StatusEmprunt;
+import ma.enset.bibliotheque.enums.StatusEmprunt;
 
 import java.time.LocalDate;
-import java.util.Date;
+
 @Data
 @Entity @NoArgsConstructor
 @AllArgsConstructor
