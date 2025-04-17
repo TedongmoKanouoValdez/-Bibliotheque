@@ -1,24 +1,38 @@
 package ma.enset.bibliotheque.web;
 
-import lombok.RequiredArgsConstructor;
 import ma.enset.bibliotheque.dtos.LivreDTO;
 import ma.enset.bibliotheque.services.LivreService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @RestController
 @RequestMapping("/livres")
-@RequiredArgsConstructor
 public class LivreController {
 
     private final LivreService livreService;
 
+    public LivreController(LivreService livreService) {
+        this.livreService = livreService;
+    }
 
     @PostMapping
-    public LivreDTO createLivre(@RequestBody LivreDTO livreDTO) {
-        return livreService.createLivre(livreDTO);
+    public LivreDTO create(@RequestBody LivreDTO dto) {
+        return livreService.createLivre(dto);
+    }
+
+    @PutMapping("/{id}")
+    public LivreDTO update(@PathVariable Long id, @RequestBody LivreDTO dto) {
+        return livreService.modifierLivre(id, dto);
+    }
+
+    @GetMapping
+    public List<LivreDTO> getAll() {
+        return livreService.getAllLivres();
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        livreService.supprimerLivre(id);
     }
 }

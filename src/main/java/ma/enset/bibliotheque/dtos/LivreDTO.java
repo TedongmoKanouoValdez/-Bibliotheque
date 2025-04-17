@@ -1,9 +1,8 @@
 package ma.enset.bibliotheque.dtos;
 
 import lombok.Data;
-
-import java.util.HashSet;
 import java.util.Set;
+
 @Data
 public class LivreDTO {
     private Long id;
@@ -14,7 +13,5 @@ public class LivreDTO {
 
     private Long auteurId;
     private Long editeurId;
-    private Set<Long> categorieIds = new HashSet<>();
-
-    private Set<EmpruntDTO> emprunts = new HashSet<>(); // Liste des emprunts détaillés sous forme de DTO
+    private Set<Long> categorieIds;
 }
