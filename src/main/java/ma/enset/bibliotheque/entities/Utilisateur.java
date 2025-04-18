@@ -11,7 +11,7 @@ import ma.enset.bibliotheque.enums.Role;
 @NoArgsConstructor
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED) // Héritage avec table séparée
-public abstract class Utilisateur {
+public class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
