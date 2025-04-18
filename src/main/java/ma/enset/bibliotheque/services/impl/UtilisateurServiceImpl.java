@@ -38,5 +38,30 @@ public class UtilisateurServiceImpl implements UtilisateurService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<UtilisateurDTO> getUtilisateursParRoles(List<String> roles) {
+        // Récupère les utilisateurs ayant les rôles spécifiés
+        List<Utilisateur> utilisateurs = utilisateurRepository.findByRoleIn(roles);
+
+        // Utilise le mapper pour convertir les entités Utilisateur en UtilisateurDTO
+        return utilisateurs.stream()
+                .map(utilisateurMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public UtilisateurDTO deleteUtilisateur(Long id) {
+        Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById(id);
+        if (utilisateurOptional.isPresent()) {
+            Utilisateur utilisateur = utilisateurOptional.get();
+            utilisateurRepository.deleteById(id);
+            return utilisateurMapper.toDTO(utilisateur);
+        }
+        else{
+            throw new RuntimeException("Un utilisateur avec cet id " + id + " n' existe pas.");
+        }
+    }
+
+
 
 }
