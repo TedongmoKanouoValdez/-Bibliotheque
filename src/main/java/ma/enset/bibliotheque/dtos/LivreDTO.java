@@ -13,6 +13,8 @@ public class LivreDTO {
     private String dateAcquisition;
     private String etatLivre;
     private Long auteurId;
+    private AuteurDTO auteur;
+    private EditeurDTO editeur;
     private Long editeurId;
     private List<CategorieDTO> categories; // ✅ Ajouté
 }
