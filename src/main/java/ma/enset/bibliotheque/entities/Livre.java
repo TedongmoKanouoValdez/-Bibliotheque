@@ -1,17 +1,22 @@
 package ma.enset.bibliotheque.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
-import ma.enset.bibliotheque.emuns.EtatLivre;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import ma.enset.bibliotheque.entities.Auteur;
+import ma.enset.bibliotheque.entities.Categorie;
+import ma.enset.bibliotheque.entities.Editeur;
+import ma.enset.bibliotheque.enums.EtatLivre;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data // Génère getters/setters, toString(), equals(), hashCode()
-@NoArgsConstructor // Constructeur sans arguments
-@AllArgsConstructor // Constructeur avec tous les arguments
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Livre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,26 +26,17 @@ public class Livre {
     private String isbn;
     private LocalDate dateAcquisition;
 
+
+
     @Enumerated(EnumType.STRING)
     private EtatLivre etatLivre;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "auteur_id", foreignKey = @ForeignKey(name = "FK_LIVRE_AUTEUR"))
+    @ManyToOne
     private Auteur auteur;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "editeur_id", foreignKey = @ForeignKey(name = "FK_LIVRE_EDITEUR"))
+    @ManyToOne
     private Editeur editeur;
 
-    @OneToMany(mappedBy = "livre", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<Emprunt> emprunts = new ArrayList<>(); // Initialisation de la liste
-
     @ManyToMany
-    @JoinTable(
-            name = "livre_categorie",
-            joinColumns = @JoinColumn(name = "livre_id"),
-            inverseJoinColumns = @JoinColumn(name = "categorie_id")
-    )
-    private Set<Categorie> categories = new HashSet<>(); // Initialisation directe
+    private Set<Categorie> categories = new HashSet<>();
 }

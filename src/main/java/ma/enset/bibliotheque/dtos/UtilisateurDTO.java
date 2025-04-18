@@ -1,7 +1,7 @@
 package ma.enset.bibliotheque.dtos;
 
 import lombok.Data;
-import ma.enset.bibliotheque.emuns.Role;
+import ma.enset.bibliotheque.enums.Role;
 
 @Data
 public class UtilisateurDTO {
