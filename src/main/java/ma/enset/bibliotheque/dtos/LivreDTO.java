@@ -1,6 +1,8 @@
 package ma.enset.bibliotheque.dtos;
 
 import lombok.Data;
+
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -10,8 +12,7 @@ public class LivreDTO {
     private String isbn;
     private String dateAcquisition;
     private String etatLivre;
-
     private Long auteurId;
     private Long editeurId;
-    private Set<Long> categorieIds;
+    private List<CategorieDTO> categories; // ✅ Ajouté
 }

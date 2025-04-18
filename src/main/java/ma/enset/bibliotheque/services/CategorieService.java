@@ -5,8 +5,9 @@ import ma.enset.bibliotheque.dtos.CategorieDTO;
 import java.util.List;
 
 public interface CategorieService {
-    CategorieDTO saveCategorie(CategorieDTO dto);
+    CategorieDTO createCategorie(CategorieDTO dto); // renommé pour correspondre à l'implémentation
     List<CategorieDTO> getAllCategories();
-    CategorieDTO getCategorie(Long id);
+    CategorieDTO getCategorieById(Long id);
+    CategorieDTO updateCategorie(Long id, CategorieDTO dto);
     void deleteCategorie(Long id);
 }

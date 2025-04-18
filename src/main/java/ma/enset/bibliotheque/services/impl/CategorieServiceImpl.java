@@ -1,10 +1,11 @@
-package ma.enset.bibliotheque.services;
+package ma.enset.bibliotheque.services.impl;
 
 import lombok.AllArgsConstructor;
 import ma.enset.bibliotheque.dtos.CategorieDTO;
 import ma.enset.bibliotheque.entities.Categorie;
 import ma.enset.bibliotheque.mappers.CategorieMapper;
 import ma.enset.bibliotheque.repositories.CategorieRepository;
+import ma.enset.bibliotheque.services.CategorieService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,25 +19,37 @@ public class CategorieServiceImpl implements CategorieService {
     private final CategorieMapper categorieMapper;
 
     @Override
-    public CategorieDTO saveCategorie(CategorieDTO dto) {
-        Categorie categorie = categorieMapper.toEntity(dto);
-        Categorie saved = categorieRepository.save(categorie);
-        return categorieMapper.toDTO(saved);
+    public CategorieDTO createCategorie(CategorieDTO categorieDTO) {
+        Categorie categorie = categorieMapper.toEntity(categorieDTO);
+        Categorie savedCategorie = categorieRepository.save(categorie);
+        return categorieMapper.toDto(savedCategorie);
     }
 
     @Override
     public List<CategorieDTO> getAllCategories() {
         return categorieRepository.findAll()
                 .stream()
-                .map(categorieMapper::toDTO)
+                .map(categorieMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CategorieDTO getCategorie(Long id) {
+    public CategorieDTO getCategorieById(Long id) {
         return categorieRepository.findById(id)
-                .map(categorieMapper::toDTO)
-                .orElseThrow(() -> new RuntimeException("Catégorie introuvable"));
+                .map(categorieMapper::toDto)
+                .orElseThrow(() -> new RuntimeException("Categorie non trouvée"));
+    }
+
+    @Override
+    public CategorieDTO updateCategorie(Long id, CategorieDTO categorieDTO) {
+        Categorie existingCategorie = categorieRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Categorie non trouvée"));
+
+        existingCategorie.setLibelle(categorieDTO.getLibelle());
+        existingCategorie.setDescription(categorieDTO.getDescription());
+
+        Categorie updatedCategorie = categorieRepository.save(existingCategorie);
+        return categorieMapper.toDto(updatedCategorie);
     }
 
     @Override
