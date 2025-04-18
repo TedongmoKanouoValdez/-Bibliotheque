@@ -30,7 +30,4 @@ public class Emprunt {
     @JoinColumn(name = "livre_id", nullable = false)
     private Livre livre;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "adherent_id", nullable = false)
-    private Adherent adherent;
 }

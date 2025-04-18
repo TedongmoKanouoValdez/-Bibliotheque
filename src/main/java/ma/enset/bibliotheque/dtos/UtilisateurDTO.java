@@ -1,5 +1,9 @@
 package ma.enset.bibliotheque.dtos;
 
+import lombok.Data;
+import ma.enset.bibliotheque.emuns.Role;
+
+@Data
 public class UtilisateurDTO {
     private Long id;
     private String nom;
@@ -7,5 +11,6 @@ public class UtilisateurDTO {
     private String email;
     private String telephone;
     private String adresse;
-    private String role;
+    private String password;
+    private Role role;
 }
