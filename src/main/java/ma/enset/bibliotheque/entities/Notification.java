@@ -18,10 +18,6 @@ public class Notification {
     private boolean estLue = false;
 
     @ManyToOne
-    @JoinColumn(name = "adherent_id")
-    private Adherent adherent;
-
-    @ManyToOne
     @JoinColumn(name = "livre_id")
     private Livre livre;
 }

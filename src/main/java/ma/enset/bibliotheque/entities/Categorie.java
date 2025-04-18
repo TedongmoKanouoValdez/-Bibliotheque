@@ -2,23 +2,35 @@ package ma.enset.bibliotheque.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
+
+@Entity
 @Data
-@Entity @NoArgsConstructor
-@AllArgsConstructor
 public class Categorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String libelle;
-    private String Description;
 
-    //relation inverse avec le livre
+    private String libelle;
+    private String description;
+
     @ManyToMany(mappedBy = "categories")
-    private Set<Livre> livres = new HashSet<>();
+    @JsonIgnore
+    private Set<Livre> livres = new LinkedHashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Categorie)) return false;
+        Categorie that = (Categorie) o;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
