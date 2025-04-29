@@ -36,4 +36,9 @@ public class UtilisateurController {
         UtilisateurDTO utilisateurDTO = utilisateurService.deleteUtilisateur(id);
         return ResponseEntity.ok(utilisateurDTO);
     }
+
+    @PutMapping("/{id}")
+    public UtilisateurDTO updateUtilisateur (@PathVariable Long id, @RequestBody UtilisateurDTO utilisateurDTO) {
+        return utilisateurService.updateUtilisateur(id, utilisateurDTO);
+    }
 }

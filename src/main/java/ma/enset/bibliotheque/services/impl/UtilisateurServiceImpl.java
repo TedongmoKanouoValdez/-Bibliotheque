@@ -62,6 +62,21 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         }
     }
 
+    @Override
+    public UtilisateurDTO updateUtilisateur(Long id, UtilisateurDTO utilisateurDTO) {
+        Utilisateur utilisateur = utilisateurRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Utilisateur non trouvé"));
+        utilisateur.setNom(utilisateurDTO.getNom());
+        utilisateur.setPrenom(utilisateurDTO.getPrenom());
+        utilisateur.setEmail(utilisateurDTO.getEmail());
+        utilisateur.setTelephone(utilisateurDTO.getTelephone());
+        utilisateur.setAdresse(utilisateurDTO.getAdresse());
+        utilisateur.setPassword(utilisateurDTO.getPassword());
+        utilisateur.setRole(utilisateurDTO.getRole());
+
+        Utilisateur updatedUtilisateur = utilisateurRepository.save(utilisateur);
+        return utilisateurMapper.toDTO(updatedUtilisateur);
+    }
 
 
 }
