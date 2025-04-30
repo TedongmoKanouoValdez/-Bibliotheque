@@ -19,9 +19,9 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     private final UtilisateurMapper utilisateurMapper;
     @Override
     public UtilisateurDTO saveUtilisateur(UtilisateurDTO utilisateurDto) {
-        Optional<Utilisateur> existingUser = utilisateurRepository.findFirstByEmail(utilisateurDto.getEmail());
+        Utilisateur existingUser = utilisateurRepository.findFirstByEmail(utilisateurDto.getEmail());
 
-        if (existingUser.isPresent()) {
+        if (existingUser != null) {
             throw new RuntimeException("Un utilisateur avec cet email existe déjà.");
         }
 
@@ -77,6 +77,17 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         Utilisateur updatedUtilisateur = utilisateurRepository.save(utilisateur);
         return utilisateurMapper.toDTO(updatedUtilisateur);
     }
+
+    @Override
+    public UtilisateurDTO login(String email, String password) {
+        Utilisateur utilisateur = utilisateurRepository.findFirstByEmail(email);
+        if(utilisateur != null && utilisateur.getPassword().equals(password)) {
+            return utilisateurMapper.toDTO(utilisateur);
+        }
+        return null;
+    }
+
+
 
 
 }

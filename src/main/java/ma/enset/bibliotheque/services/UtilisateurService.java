@@ -11,4 +11,6 @@ public interface UtilisateurService {
     List<UtilisateurDTO> getUtilisateursParRoles(List<String> roles);
     UtilisateurDTO deleteUtilisateur(Long id);
     UtilisateurDTO updateUtilisateur(Long id, UtilisateurDTO utilisateurDTO);
+    UtilisateurDTO login(String email, String password);
+
 }
