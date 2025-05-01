@@ -42,4 +42,20 @@ public class EmpruntServiceImpl implements EmpruntService {
         Emprunt saved = empruntRepository.save(emprunt);
         return empruntMapper.toDto(saved);
     }
+
+    @Override
+    public EmpruntDTO enregistrerRetour(Long empruntId) {
+        Emprunt emprunt = empruntRepository.findById(empruntId)
+                .orElseThrow(() -> new RuntimeException("Emprunt id not found: " + empruntId));
+
+        if(emprunt.getDateRetourEffectif() != null ){
+            throw new RuntimeException("Le livre a dej) été retourné. ");
+        }
+
+        emprunt.setDateRetourEffectif(LocalDate.now());
+        emprunt.setStatut(StatusEmprunt.RETOURNÉ);
+
+        Emprunt updatedEmprunt = empruntRepository.save(emprunt);
+        return empruntMapper.toDto(updatedEmprunt);
+    }
 }

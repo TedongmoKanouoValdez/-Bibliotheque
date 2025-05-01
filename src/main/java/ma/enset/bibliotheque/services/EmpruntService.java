@@ -4,4 +4,5 @@ import ma.enset.bibliotheque.dtos.EmpruntDTO;
 
 public interface EmpruntService {
     EmpruntDTO createEmprunt(EmpruntDTO empruntDTO);
+    EmpruntDTO enregistrerRetour(Long empruntId);
 }

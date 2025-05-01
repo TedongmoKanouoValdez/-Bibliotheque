@@ -5,10 +5,7 @@ import ma.enset.bibliotheque.dtos.EmpruntDTO;
 import ma.enset.bibliotheque.services.EmpruntService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/emprunts")
@@ -22,4 +19,10 @@ public class EmpruntController {
         EmpruntDTO savedEmprunt = empruntService.createEmprunt(empruntDTO);
         return new ResponseEntity<>(savedEmprunt, HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}/retour")
+    public EmpruntDTO enregistrerRetour(@PathVariable Long id) {
+        return empruntService.enregistrerRetour(id);
+    }
+
 }
