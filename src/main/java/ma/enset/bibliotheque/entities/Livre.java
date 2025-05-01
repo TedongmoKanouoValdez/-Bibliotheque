@@ -26,9 +26,8 @@ public class Livre {
     private String isbn;
     private LocalDate dateAcquisition;
 
-
-
     @Enumerated(EnumType.STRING)
+    @Column(name = "etat_livre")
     private EtatLivre etatLivre;
 
     @ManyToOne

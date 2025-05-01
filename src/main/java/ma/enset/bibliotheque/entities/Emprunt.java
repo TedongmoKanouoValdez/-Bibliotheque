@@ -30,4 +30,8 @@ public class Emprunt {
     @JoinColumn(name = "livre_id", nullable = false)
     private Livre livre;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "utilisateur_id", nullable = false)
+    private Utilisateur utilisateur;
+
 }
