@@ -55,8 +55,16 @@ public class LivreMapper {
         livre.setTitre(dto.getTitre());
         livre.setIsbn(dto.getIsbn());
         livre.setDateAcquisition(LocalDate.parse(dto.getDateAcquisition()));
-        livre.setEtatLivre(EtatLivre.valueOf(dto.getEtatLivre()));
-        // Auteur, éditeur, et catégories sont gérés dans le service
+
+        if (dto.getEtatLivre() != null) {
+            try {
+                livre.setEtatLivre(EtatLivre.valueOf(dto.getEtatLivre().toUpperCase()));
+            } catch (IllegalArgumentException e) {
+                throw new RuntimeException("État du livre invalide : " + dto.getEtatLivre());
+            }
+        }
+
         return livre;
     }
+
 }

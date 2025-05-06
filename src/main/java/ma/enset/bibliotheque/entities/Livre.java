@@ -27,8 +27,8 @@ public class Livre {
     private LocalDate dateAcquisition;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "etat_livre")
     private EtatLivre etatLivre;
+
 
     @ManyToOne
     private Auteur auteur;

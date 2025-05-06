@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/emprunts")
 @RequiredArgsConstructor
@@ -24,5 +26,17 @@ public class EmpruntController {
     public EmpruntDTO enregistrerRetour(@PathVariable Long id) {
         return empruntService.enregistrerRetour(id);
     }
+    @GetMapping("/historique/{utilisateurId}")
+    public ResponseEntity<List<EmpruntDTO>> getHistoriqueEmprunts(@PathVariable Long utilisateurId) {
+        List<EmpruntDTO> emprunts = empruntService.getHistoriqueEmprunts(utilisateurId);
+        return ResponseEntity.ok(emprunts);  // Retourne la liste des emprunts dans la réponse HTTP
+    }
+
+    @GetMapping("/historique")
+    public ResponseEntity<List<EmpruntDTO>> getHistoriqueAllEmprunts() {
+        List<EmpruntDTO> emprunts = empruntService.getAllHistoriqueEmprunts();
+        return ResponseEntity.ok(emprunts);
+    }
+
 
 }
