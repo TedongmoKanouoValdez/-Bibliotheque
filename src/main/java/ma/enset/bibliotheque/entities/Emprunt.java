@@ -20,6 +20,8 @@ public class Emprunt {
     private LocalDate dateRetourPrevu;
 
     private LocalDate dateRetourEffectif;
+    private boolean enRetard;
+    private Double penalite;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

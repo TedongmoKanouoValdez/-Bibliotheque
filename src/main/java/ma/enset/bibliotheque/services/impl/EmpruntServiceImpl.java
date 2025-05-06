@@ -17,6 +17,7 @@ import ma.enset.bibliotheque.services.EmpruntService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,21 +55,35 @@ public class EmpruntServiceImpl implements EmpruntService {
     }
 
 
-    @Override
     public EmpruntDTO enregistrerRetour(Long empruntId) {
         Emprunt emprunt = empruntRepository.findById(empruntId)
-                .orElseThrow(() -> new RuntimeException("Emprunt id not found: " + empruntId));
+                .orElseThrow(() -> new RuntimeException("Emprunt non trouvé"));
 
-        if(emprunt.getDateRetourEffectif() != null ){
-            throw new RuntimeException("Le livre a dej) été retourné. ");
+        LocalDate today = LocalDate.now();
+        emprunt.setDateRetourEffectif(today);
+
+        if (emprunt.getDateRetourPrevu() != null && today.isAfter(emprunt.getDateRetourPrevu())) {
+            long joursDeRetard = ChronoUnit.DAYS.between(emprunt.getDateRetourPrevu(), today);
+            emprunt.setEnRetard(true);
+            emprunt.setPenalite(joursDeRetard * 1.5); // Exemple : 1,5€ par jour de retard
+        } else {
+            emprunt.setEnRetard(false);
+            emprunt.setPenalite(0.0);
         }
 
-        emprunt.setDateRetourEffectif(LocalDate.now());
-        emprunt.setStatut(StatusEmprunt.RETOURNÉ);
-
-        Emprunt updatedEmprunt = empruntRepository.save(emprunt);
-        return empruntMapper.toDto(updatedEmprunt);
+        empruntRepository.save(emprunt);
+        return empruntMapper.toDto(emprunt);
     }
+
+    public Double getPenaliteTotale(Long utilisateurId) {
+        List<Emprunt> emprunts = empruntRepository.findByUtilisateurId(utilisateurId);
+        return emprunts.stream()
+                .filter(Emprunt::isEnRetard) // car c'est un boolean
+                .mapToDouble(e -> e.getPenalite() != null ? e.getPenalite() : 0.0)
+                .sum();
+    }
+
+
 
     @Override
     public List<EmpruntDTO> getHistoriqueEmprunts(Long utilisateurId) {

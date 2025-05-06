@@ -8,5 +8,5 @@ import java.util.List;
 public interface EmpruntRepository extends JpaRepository<Emprunt, Long> {
     //Avoir l'historiques des emprunts de chaque utilisateur par ordre de date
     List<Emprunt> findByUtilisateurIdOrderByDateEmpruntDesc(Long utilisateurId);
-
+    List<Emprunt> findByUtilisateurId(Long utilisateurId);
 }

@@ -9,5 +9,6 @@ public interface EmpruntService {
     EmpruntDTO enregistrerRetour(Long empruntId);
     List<EmpruntDTO> getHistoriqueEmprunts(Long utilisateurId);
     List<EmpruntDTO> getAllHistoriqueEmprunts();
+    Double getPenaliteTotale(Long utilisateurId);
 
 }
